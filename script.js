@@ -46,13 +46,11 @@ function humanPlay() {
 
 /* I need a funtion to decide the winner when human and computer play one round together. */
 function playRound(playerSelection, computerSelection) {
-  playerSelection = humanPlay();
   
   if (playerSelection === undefined) {
     return undefined;
   } 
 
-  computerSelection = computerPlay();
   console.log(playerSelection);
   console.log(computerSelection);
 
@@ -84,32 +82,72 @@ function playRound(playerSelection, computerSelection) {
 }
 
 /* I need a function to decide and print the winner in the console when human and computer play five rounds together.  */
-  function game() {
-  let playRoundResult = playRound();
+function game() {
+  
+let humanScore = 0;
+let computerScore = 0;
+
+for (let i = 0; i < 5; i++) {
+  let playRoundResult = playRound(humanPlay(), computerPlay());
 
   if (playRoundResult === undefined) {
     alert(`Wrong input!`);
     alert(`Not possible to play game!`);
     alert(`Terminating game...`)
     return;
-  }
-   
-  let humanScore = 0;
-  let computerScore = 0;
-  
-  for (let i = 0; i < 5; i++) {
-  playRoundResult = playRound();
-    if (playRoundResult === `Computer won round!`) {
+  } else if (playRoundResult === `Computer won round!`) {
       computerScore++;
       console.log(`Human ${humanScore} - ${computerScore} Computer`);
-    } else if (playRoundResult === `Human won round!`) {
+  } else if (playRoundResult === `Human won round!`) {
       humanScore++;
       console.log(`Human ${humanScore} - ${computerScore} Computer`);
-    } else if (playRoundResult === `Draw!`) {
+  } else if (playRoundResult === `Draw!`) {
       console.log(`Human ${humanScore} - ${computerScore} Computer`);
+  }
+  
+}
+
+console.log(`Final Result: Human ${humanScore} - ${computerScore} Computer`);
+
+if (humanScore > computerScore) {
+  console.log(`Human won game!`);
+} else if (humanScore < computerScore) {
+    console.log(`Computer won game!`);
+} else {
+    console.log(`Draw!`);
+}
+
+let startOverGame = prompt(`Do you want to play another game?`, `Answer with 'Yes' or 'No'`);
+
+if (startOverGame === `Yes` || startOverGame === `No`) {
+  switch(startOverGame) {
+    case `Yes`:
+      game();
+      break;
+    case `No`:
+      alert(`Game Over!`);
+      break;
+  }
+} else { /* The user has three choices here. To either type in yes or no in lower case, or to type in something else, whatever that is. */
+    startOverGame = firstLetterCapital(startOverGame);
+    console.log(startOverGame);
+    switch(startOverGame) {
+      case `Yes`:
+        game();
+        break;
+      case `No`:
+        alert(`Game Over!`);
+        break;
+      default:
+        alert(`Invalid input. Game Over!`);
     }
   }
 } 
+
+
+
+
+
 
 
 /* I need to test computerPlay() to see if it returns `Rock`, `Paper` and `Scissors` the same amount of times. */
