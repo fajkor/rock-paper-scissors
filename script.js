@@ -10,7 +10,7 @@ function computerPlay() {
   }
 }
 
-/* I want a funtion that makes the first letter of the user input capital while the rest of them remain lower case. */
+/* I want a function that makes the first letter of the user input capital while the rest of them remain lower case. */
 function firstLetterCapital(userInput) {
     let lowerCase = userInput.slice(1).toLowerCase();
     let upperCase = userInput.slice(0,1).toUpperCase();
@@ -23,7 +23,7 @@ function humanPlay() {
   
   if (userInput === `Rock` || userInput === `Paper` || userInput === `Scissors`) {
     return userInput;
-  } else { /* I assume here that the user has either entered the right input but not with the first letter capital, or has given a wrong input alltogether. */
+  } else { /* I assume here that the user has either entered the right input but not with the first letter capital, or has given a wrong input all together. */
     userInput = firstLetterCapital(userInput);
     if (userInput === `Rock` || userInput === `Paper` || userInput === `Scissors`) {
       return userInput;
@@ -44,15 +44,12 @@ function humanPlay() {
   }
 } 
 
-/* I need a funtion to decide the winner when human and computer play one round together. */
+/* I need a function to decide the winner when human and computer play one round together. */
 function playRound(playerSelection, computerSelection) {
   
   if (playerSelection === undefined) {
     return undefined;
-  } 
-
-  console.log(playerSelection);
-  console.log(computerSelection);
+  }
 
   if (playerSelection === `Rock`) {
     if (computerSelection === `Paper`) {
@@ -88,34 +85,62 @@ let humanScore = 0;
 let computerScore = 0;
 
 for (let i = 0; i < 5; i++) {
-  let playRoundResult = playRound(humanPlay(), computerPlay());
+  let playerSelection = humanPlay();
+  let computerSelection = computerPlay();
+
+  console.log(`Human: ${playerSelection}`);
+  console.log(`Computer: ${computerSelection}`);
+
+  let playRoundResult = playRound(playerSelection, computerSelection);
 
   if (playRoundResult === undefined) {
     alert(`Wrong input!`);
     alert(`Not possible to play game!`);
     alert(`Terminating game...`)
     return;
+
+/*  I need the code below to decide who won the game. 
+    Also, sometimes we won't need to play 5 rounds to decide the winner of the game. For this reason, if we have a winner before the fifth round, I want my program to output the winner and to get out of the iteration loop. */
   } else if (playRoundResult === `Computer won round!`) {
       computerScore++;
-      console.log(`Human ${humanScore} - ${computerScore} Computer`);
+      if ((4 - i) < Math.abs(computerScore - humanScore)) {
+        console.log(`Computer won game!`);
+        console.log(`Final Result: Human ${humanScore} - ${computerScore} Computer`);
+        break;
+      } else {
+        console.log(`Computer won round!`);
+        console.log(`Human ${humanScore} - ${computerScore} Computer`);
+      }
   } else if (playRoundResult === `Human won round!`) {
       humanScore++;
-      console.log(`Human ${humanScore} - ${computerScore} Computer`);
+      if ((4 - i) < Math.abs(humanScore - computerScore)) {
+        console.log(`Human won game!`);
+        console.log(`Final Result: Human ${humanScore} - ${computerScore} Computer`);
+        break;
+      } else {
+        console.log(`Human won round!`);
+        console.log(`Human ${humanScore} - ${computerScore} Computer`);
+      }
   } else if (playRoundResult === `Draw!`) {
-      console.log(`Human ${humanScore} - ${computerScore} Computer`);
+        /* I need the code below to decide who won the game despite the last round of the game being draw. */
+        if ((computerScore > humanScore) && (4 - i < computerScore - humanScore)) {
+          console.log(`Computer won game!`);
+          console.log(`Final Result: Human ${humanScore} - ${computerScore} Computer`);
+          break;
+        } else if ((humanScore > computerScore) && (4 - i < humanScore - computerScore)) {
+          console.log(`Human won game!`);
+          console.log(`Final Result: Human ${humanScore} - ${computerScore} Computer`);
+          break;
+          /* I need the code below to decide if the final result of the game is draw. */
+        } else if ((humanScore === computerScore) && (i === 4)) {
+          console.log(`It's a Draw!`);
+          console.log(`Final Result: Human ${humanScore} - ${computerScore} Computer`);
+        } else {
+          console.log(`Neither won round! Score remains unchanged`);
+          console.log(`Human ${humanScore} - ${computerScore} Computer`);
+        }
+      } 
   }
-  
-}
-
-console.log(`Final Result: Human ${humanScore} - ${computerScore} Computer`);
-
-if (humanScore > computerScore) {
-  console.log(`Human won game!`);
-} else if (humanScore < computerScore) {
-    console.log(`Computer won game!`);
-} else {
-    console.log(`Draw!`);
-}
 
 let startOverGame = prompt(`Do you want to play another game?`, `Answer with 'Yes' or 'No'`);
 
@@ -142,32 +167,4 @@ if (startOverGame === `Yes` || startOverGame === `No`) {
         alert(`Invalid input. Game Over!`);
     }
   }
-} 
-
-
-
-
-
-
-
-/* I need to test computerPlay() to see if it returns `Rock`, `Paper` and `Scissors` the same amount of times. */
-/******* Testing computerPlay() *******/
-let rock = 0;
-let paper = 0;
-let scissors = 0;
-for (let i = 0; i < 1000000; i++) {
-  if (computerPlay() === `Rock`) {
-    rock++;
-  } else if (computerPlay() === `Paper`) {
-    paper++;
-  } else {
-    scissors++;
-  }
 }
-
-console.log(`Rock: ${rock}`);
-console.log(`Paper: ${paper}`);
-console.log(`Scissors ${scissors}`);
-
-/*Unfortunately computerPlay() is not very accurate. According to the test computerPlay() most of the times it return numbers from the upper range (between 0.6666 and 0.9999) */
-
