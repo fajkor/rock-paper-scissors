@@ -10,7 +10,7 @@ function computerPlay() {
   }
 }
 
-/* I want a function that makes the first letter of the user input capital while the rest of them remain lower case. */
+/* I want a function that makes the first letter of the user input upper case while the rest of them remain lower case. */
 function firstLetterCapital(userInput) {
     let lowerCase = userInput.slice(1).toLowerCase();
     let upperCase = userInput.slice(0,1).toUpperCase();
