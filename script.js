@@ -1,7 +1,7 @@
-/* I need a function to allow the computer to return one of the three options: `Rock`, `Paper` or `Scissors`. */
+/* A function to allow the computer to return randomly one of these 3 options: `Rock`, `Paper` or `Scissors`. */
 function computerPlay() {
   let computerInput = Math.random(0, 0.9999);
-  if (computerInput < 0.3333 /* The more floating point I have, the more accurate the result of computerPlay function should be*/ ) {
+  if (computerInput < 0.3333) {
     return `Rock`;
   } else if (computerInput < 0.6666 ) {
     return `Paper`;
@@ -10,20 +10,19 @@ function computerPlay() {
   }
 }
 
-/* I want a function that makes the first letter of the user input upper case while the rest of them remain lower case. */
 function firstLetterCapital(userInput) {
     let lowerCase = userInput.slice(1).toLowerCase();
     let upperCase = userInput.slice(0,1).toUpperCase();
     return `${upperCase}${lowerCase}`;
 }
 
-/* I need a function to allow the user to input `Rock`, `Paper` or `Scissors`. */
+/* A function to allow the user to input `Rock`, `Paper` or `Scissors`. */   
 function humanPlay() {
   let userInput = prompt(`Please type in 'Rock', 'Paper' or 'Scissors'`);
   
   if (userInput === `Rock` || userInput === `Paper` || userInput === `Scissors`) {
     return userInput;
-  } else { /* I assume here that the user has either entered the right input but not with the first letter capital, or has given a wrong input all together. */
+  } else { /* In case the user types in a wrong input or types in lower case, or all caps. */
     userInput = firstLetterCapital(userInput);
     if (userInput === `Rock` || userInput === `Paper` || userInput === `Scissors`) {
       return userInput;
@@ -31,7 +30,7 @@ function humanPlay() {
       userInput = prompt(`Wrong input! Please, try again!`);
       if (userInput === `Rock` || userInput === `Paper` || userInput === `Scissors`) {
         return userInput;
-      } else { /* The same assumption as above. */
+      } else { /* Give the user a second chance to type in the right input. */
         userInput = firstLetterCapital(userInput);
         if (userInput === `Rock` || userInput === `Paper` || userInput === `Scissors`) {
           return userInput;
@@ -44,7 +43,7 @@ function humanPlay() {
   }
 } 
 
-/* I need a function to decide the winner when human and computer play one round together. */
+/* A function to decide the winner when human and computer play one round together. */
 function playRound(playerSelection, computerSelection) {
   
   if (playerSelection === undefined) {
@@ -78,7 +77,7 @@ function playRound(playerSelection, computerSelection) {
   }
 }
 
-/* I need a function to decide and print the winner in the console when human and computer play five rounds together.  */
+/* A function to output the winner in the console when human and computer play 5 rounds together. */
 function game() {
   
 let humanScore = 0;
@@ -98,31 +97,29 @@ for (let i = 0; i < 5; i++) {
     alert(`Not possible to play game!`);
     alert(`Terminating game...`)
     return;
-
-/*  I need the code below to decide who won the game. 
-    Also, sometimes we won't need to play 5 rounds to decide the winner of the game. For this reason, if we have a winner before the fifth round, I want my program to output the winner and to get out of the iteration loop. */
+    /* Output who won game or round. */
   } else if (playRoundResult === `Computer won round!`) {
       computerScore++;
       if ((4 - i) < Math.abs(computerScore - humanScore)) {
-        console.log(`Computer won game!`);
+        console.log(`Computer won round ${i + 1} and game!`);
         console.log(`Final Result: Human ${humanScore} - ${computerScore} Computer`);
         break;
       } else {
-        console.log(`Computer won round!`);
-        console.log(`Human ${humanScore} - ${computerScore} Computer`);
+        console.log(`Computer won round ${i + 1}!`);
+        console.log(`Human ${humanScore} - ${computerScore} Computer\n\n`);
       }
   } else if (playRoundResult === `Human won round!`) {
       humanScore++;
       if ((4 - i) < Math.abs(humanScore - computerScore)) {
-        console.log(`Human won game!`);
+        console.log(`Human won round ${i + 1} and game!`);
         console.log(`Final Result: Human ${humanScore} - ${computerScore} Computer`);
         break;
       } else {
-        console.log(`Human won round!`);
-        console.log(`Human ${humanScore} - ${computerScore} Computer`);
+        console.log(`Human won round ${i + 1}!`);
+        console.log(`Human ${humanScore} - ${computerScore} Computer\n\n`);
       }
   } else if (playRoundResult === `Draw!`) {
-        /* I need the code below to decide who won the game despite the last round of the game being draw. */
+        /* Output the game winner despite the last round of the game being draw. */
         if ((computerScore > humanScore) && (4 - i < computerScore - humanScore)) {
           console.log(`Computer won game!`);
           console.log(`Final Result: Human ${humanScore} - ${computerScore} Computer`);
@@ -131,16 +128,20 @@ for (let i = 0; i < 5; i++) {
           console.log(`Human won game!`);
           console.log(`Final Result: Human ${humanScore} - ${computerScore} Computer`);
           break;
-          /* I need the code below to decide if the final result of the game is draw. */
         } else if ((humanScore === computerScore) && (i === 4)) {
           console.log(`It's a Draw!`);
           console.log(`Final Result: Human ${humanScore} - ${computerScore} Computer`);
         } else {
-          console.log(`Neither won round! Score remains unchanged`);
-          console.log(`Human ${humanScore} - ${computerScore} Computer`);
+          console.log(`Neither won round ${i + 1}! Score remains unchanged`);
+          console.log(`Human ${humanScore} - ${computerScore} Computer\n\n`);
         }
       } 
   }
+  startOver();
+}
+
+/* This function allows us to play another game with computer */
+function startOver() {
 
 let startOverGame = prompt(`Do you want to play another game?`, `Answer with 'Yes' or 'No'`);
 
@@ -153,7 +154,7 @@ if (startOverGame === `Yes` || startOverGame === `No`) {
       alert(`Game Over!`);
       break;
   }
-} else { /* The user has three choices here. To either type in yes or no in lower case, or to type in something else, whatever that is. */
+} else { /* If user types in yes or no in lower case, or types in something else. */
     startOverGame = firstLetterCapital(startOverGame);
     console.log(startOverGame);
     switch(startOverGame) {
