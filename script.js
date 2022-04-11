@@ -10,45 +10,14 @@ function computerPlay() {
   }
 }
 
-function firstLetterCapital(userInput) {
-    let lowerCase = userInput.slice(1).toLowerCase();
-    let upperCase = userInput.slice(0,1).toUpperCase();
-    return `${upperCase}${lowerCase}`;
-}
-
 /* A function to allow the user to input `Rock`, `Paper` or `Scissors`. */   
 function humanPlay() {
   let userInput = prompt(`Please type in 'Rock', 'Paper' or 'Scissors'`);
-  
-  if (userInput === `Rock` || userInput === `Paper` || userInput === `Scissors`) {
-    return userInput;
-  } else { /* In case the user types in a wrong input or types in lower case, or all caps. */
-    userInput = firstLetterCapital(userInput);
-    if (userInput === `Rock` || userInput === `Paper` || userInput === `Scissors`) {
-      return userInput;
-    } else {
-      userInput = prompt(`Wrong input! Please, try again!`);
-      if (userInput === `Rock` || userInput === `Paper` || userInput === `Scissors`) {
-        return userInput;
-      } else { /* Give the user a second chance to type in the right input. */
-        userInput = firstLetterCapital(userInput);
-        if (userInput === `Rock` || userInput === `Paper` || userInput === `Scissors`) {
-          return userInput;
-        }else {
-          return undefined;
-        }
-
-      }
-    }
-  }
+  return userInput;
 } 
 
 /* A function to decide the winner when human and computer play one round together. */
 function playRound(playerSelection, computerSelection) {
-  
-  if (playerSelection === undefined) {
-    return undefined;
-  }
 
   if (playerSelection === `Rock`) {
     if (computerSelection === `Paper`) {
@@ -77,95 +46,56 @@ function playRound(playerSelection, computerSelection) {
   }
 }
 
-/* A function to output the winner in the console when human and computer play 5 rounds together. */
+/* A function to output in the console the score and either the winner of the game or the winner of the round. */
 function game() {
-  
-let humanScore = 0;
-let computerScore = 0;
 
-for (let i = 0; i < 5; i++) {
-  let playerSelection = humanPlay();
-  let computerSelection = computerPlay();
+  let humanScore = 0;
+  let computerScore = 0;
 
-  console.log(`Human: ${playerSelection}`);
-  console.log(`Computer: ${computerSelection}`);
+  for (let i = 1; i > 0; i++) {
+    let playerSelection = humanPlay();
+    let computerSelection = computerPlay();
 
-  let playRoundResult = playRound(playerSelection, computerSelection);
+    console.log(`Human: ${playerSelection}`);
+    console.log(`Computer: ${computerSelection}`);
 
-  if (playRoundResult === undefined) {
-    alert(`Wrong input!`);
-    alert(`Not possible to play game!`);
-    alert(`Terminating game...`)
-    return;
-    /* Output who won game or round. */
-  } else if (playRoundResult === `Computer won round!`) {
-      computerScore++;
-      if ((4 - i) < Math.abs(computerScore - humanScore)) {
-        console.log(`Computer won round ${i + 1} and game!`);
-        console.log(`Final Result: Human ${humanScore} - ${computerScore} Computer`);
-        break;
-      } else {
-        console.log(`Computer won round ${i + 1}!`);
-        console.log(`Human ${humanScore} - ${computerScore} Computer\n\n`);
-      }
-  } else if (playRoundResult === `Human won round!`) {
-      humanScore++;
-      if ((4 - i) < Math.abs(humanScore - computerScore)) {
-        console.log(`Human won round ${i + 1} and game!`);
-        console.log(`Final Result: Human ${humanScore} - ${computerScore} Computer`);
-        break;
-      } else {
-        console.log(`Human won round ${i + 1}!`);
-        console.log(`Human ${humanScore} - ${computerScore} Computer\n\n`);
-      }
-  } else if (playRoundResult === `Draw!`) {
-        /* Output the game winner despite the last round of the game being draw. */
-        if ((computerScore > humanScore) && (4 - i < computerScore - humanScore)) {
-          console.log(`Computer won game!`);
+    let playRoundResult = playRound(playerSelection, computerSelection);
+
+    if (playRoundResult === `Computer won round!`) {
+        computerScore++;
+        if (computerScore === 5) {
+          console.log(`Computer won round ${i} and game!`);
           console.log(`Final Result: Human ${humanScore} - ${computerScore} Computer`);
-          break;
-        } else if ((humanScore > computerScore) && (4 - i < humanScore - computerScore)) {
-          console.log(`Human won game!`);
-          console.log(`Final Result: Human ${humanScore} - ${computerScore} Computer`);
-          break;
-        } else if ((humanScore === computerScore) && (i === 4)) {
-          console.log(`It's a Draw!`);
-          console.log(`Final Result: Human ${humanScore} - ${computerScore} Computer`);
+          i = -1;
         } else {
-          console.log(`Neither won round ${i + 1}! Score remains unchanged`);
+          console.log(`Computer won round ${i}!`);
+          console.log(`Human ${humanScore} - ${computerScore} Computer\n\n`);
+        }  
+    } else if (playRoundResult === `Human won round!`) {
+        humanScore++;
+        if (humanScore === 5) {
+          console.log(`Human won round ${i} and game!`);
+          console.log(`Final Result: Human ${humanScore} - ${computerScore} Computer`);
+          i = -1;
+        } else {
+          console.log(`Human won round ${i}!`);
           console.log(`Human ${humanScore} - ${computerScore} Computer\n\n`);
         }
-      } 
-  }
-  startOver();
+    } else {
+        console.log(`Neither won round ${i}! Score remains unchanged`);
+        console.log(`Human ${humanScore} - ${computerScore} Computer\n\n`);
+        } 
+    }
+    startOver();
 }
 
 /* This function allows us to play another game with computer */
 function startOver() {
-
-let startOverGame = prompt(`Do you want to play another game?`, `Answer with 'Yes' or 'No'`);
-
-if (startOverGame === `Yes` || startOverGame === `No`) {
-  switch(startOverGame) {
-    case `Yes`:
-      game();
-      break;
-    case `No`:
-      alert(`Game Over!`);
-      break;
-  }
-} else { /* If user types in yes or no in lower case, or types in something else. */
-    startOverGame = firstLetterCapital(startOverGame);
-    console.log(startOverGame);
-    switch(startOverGame) {
-      case `Yes`:
-        game();
-        break;
-      case `No`:
-        alert(`Game Over!`);
-        break;
-      default:
-        alert(`Invalid input. Game Over!`);
-    }
+  let startOverGame = prompt(`Do you want to play another game?`, `Answer with 'Yes' or 'No'`);
+  if (startOverGame === `Yes`) {
+    game();
+  } else {
+    alert(`Game Over!`);
+    return;
   }
 }
