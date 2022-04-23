@@ -57,11 +57,6 @@ scissors.addEventListener(`click`, function() {userChoice = scissors.textContent
 /* When 'Play Next Round!' is clicked, I want Rock, Paper, Scissors buttons and the text 'Please Select' to be shown again */
 nextRound.addEventListener(`click`, () => {
   /* First I need to remove the current children of container */
-/*   container.removeChild(playerChoice);
-  container.removeChild(computerChoice);
-  container.removeChild(roundWinner);
-  container.removeChild(currentResult);
-  container.removeChild(nextRound); */
   container.textContent = ``;
 
   /* Next I need to add new children to container (i.e. instructionText and Rock, Paper, Scissors buttons) */
@@ -71,37 +66,28 @@ nextRound.addEventListener(`click`, () => {
 });
 
 yes.addEventListener(`click`, () => {
-/*   container.removeChild(playerChoice);
-  container.removeChild(computerChoice);
-  container.removeChild(roundWinner);
-  container.removeChild(currentResult);
-  container.removeChild(repeatGame);
-  container.removeChild(yesNoContainer); */
+  /* Remove .instructionText, .playerSelection from container */
   container.textContent = ``;
-  instructionText = false;
-  selectionContainer = false;
   userChoice = ``;
   humanScore = 0;
   computerScore = 0;
   i = 1;
-  instructionText = document.createElement(`p`);
-  instructionText.classList.add(`instructionText`);
   instructionText.textContent = `Please Select!`;
   container.appendChild(instructionText);
-  selectionContainer = document.createElement(`div`); 
-  selectionContainer.classList.add(`selectionContainer`);
   addSelectionContainer();
 });
+
 no.addEventListener(`click`, () => {
   container.textContent = ``;
   container.textContent = `Game Over!`;
 });
 
 function giveInstructions() {
-  /* Removes 'h1' and .startGame from .container and adds instructionText (which is a p tag) to container */
-  removeContainerChildren(); 
+  /* Remove 'h1' and .startGame from .container and add instructionText (which is a p tag) to container */
+  container.textContent = ``;
+  container.appendChild(instructionText);
   /* Show instructions before game starts */
-  instructionText.textContent = `You will play against the computer`; 
+  instructionText.textContent = `You will play against the computer.`; 
   setTimeout(showTextTwo, 2000);
   setTimeout(showTextThree, 4500);
   setTimeout(showTextFour, 6500);
@@ -110,22 +96,14 @@ function giveInstructions() {
   setTimeout(addSelectionContainer, 8500);
 }
 
-/* Removes 'h1' and startGame from container and adds instructionText to it */
-function removeContainerChildren() {
-/*   container.removeChild(h1);
-  container.removeChild(startGame); */
-  container.textContent = ``;
-  container.appendChild(instructionText);
-}
-
 /* Shows second instruction text */
 function showTextTwo() {
-  instructionText.textContent = `For every round that you win, you get 1 point`; 
+  instructionText.textContent = `For every round that you win, you get 1 point.`; 
 }
 
 /* Shows third instruction text */
 function showTextThree() {
-  instructionText.textContent = `You need five points to win game`; 
+  instructionText.textContent = `You need five points to win game.`; 
 }
 
 /* Show fourth instruction text */
@@ -155,12 +133,8 @@ function game() {
   let playerSelection = userChoice;
   let computerSelection = computerPlay();
 
-  /* If condition true, remove .instructionText, .playerSelection from container */
-  if (instructionText.textContent) {
-/*     container.removeChild(instructionText);
-    container.removeChild(selectionContainer); */
+  /* Remove .instructionText, .playerSelection from container */
     container.textContent = ``;
-  }
   
   /* Append playerChoice and computerChoice to container */
   container.appendChild(playerChoice);
@@ -169,9 +143,6 @@ function game() {
   /* Add text to playerChoice and computerChoice */
   playerChoice.textContent = `Human picked: ${playerSelection}`;
   computerChoice.textContent = `Computer picked: ${computerSelection}`;
-
-  console.log(`Human: ${playerSelection}`);
-  console.log(`Computer: ${computerSelection}`);
 
   let playRoundResult = playRound(playerSelection, computerSelection);
 
@@ -186,9 +157,6 @@ function game() {
         container.appendChild(currentResult);
         currentResult.textContent = `Final Result: Human ${humanScore} - ${computerScore} Computer`;
         startOver();
-
-        console.log(`Computer won round ${i} and game!`);
-        console.log(`Final Result: Human ${humanScore} - ${computerScore} Computer`);
       } else {
         /* Show the winner of the round */
         container.appendChild(roundWinner);
@@ -196,10 +164,9 @@ function game() {
         /* Show current result */
         container.appendChild(currentResult);
         currentResult.textContent = `Score: Human ${humanScore} - ${computerScore} Computer`;
-        setTimeout(playNextRound, 1000);
-
-        console.log(`Computer won round ${i}!`);
-        console.log(`Human ${humanScore} - ${computerScore} Computer\n\n`);
+        /* Play next round */
+        container.appendChild(nextRound);
+        nextRound.textContent = `Play next round`;
         i++;
       }  
   } else if (playRoundResult === `Human won round!`) {
@@ -213,9 +180,6 @@ function game() {
         container.appendChild(currentResult);
         currentResult.textContent = `Final Result: Human ${humanScore} - ${computerScore} Computer`;
         startOver();
-
-        console.log(`Human won round ${i} and game!`);
-        console.log(`Final Result: Human ${humanScore} - ${computerScore} Computer`);
       } else {
         /* Show current winner of the round */
         container.appendChild(roundWinner);
@@ -223,10 +187,9 @@ function game() {
         /* Show current result */
         container.appendChild(currentResult);
         currentResult.textContent = `Score: Human ${humanScore} - ${computerScore} Computer`;
-        setTimeout(playNextRound, 1000);
-
-        console.log(`Human won round ${i}!`);
-        console.log(`Human ${humanScore} - ${computerScore} Computer\n\n`);
+        /* Play next round */
+        container.appendChild(nextRound);
+        nextRound.textContent = `Play next round`;
         i++;
       }
   } else {
@@ -236,14 +199,11 @@ function game() {
       /* Show current result */
       container.appendChild(currentResult);
       currentResult.textContent = `Score: Human ${humanScore} - ${computerScore} Computer`;
-      setTimeout(playNextRound, 1000);
-
-
-      console.log(`Neither won round ${i}! Score remains unchanged`);
-      console.log(`Human ${humanScore} - ${computerScore} Computer\n\n`);
+      /* Play next round */
+      container.appendChild(nextRound);
+      nextRound.textContent = `Play next round`;
       i++;
       } 
-  // startOver();
 }
 
 /* A function to allow the computer to return randomly one of these 3 options: `Rock`, `Paper` or `Scissors`. */
@@ -288,12 +248,6 @@ function playRound(playerSelection, computerSelection) {
   }
 }
 
-function playNextRound() {
-  /* Add button asking user to play again */
-  container.appendChild(nextRound);
-  nextRound.textContent = `Play next round`;
-}
-
 /* This function allows us to play another game with computer */
 function startOver() {
   /* Add another paragraph asking if user wants to play another game */
@@ -306,38 +260,6 @@ function startOver() {
   yesNoContainer.appendChild(no);
   no.textContent = `No`;
   container.appendChild(yesNoContainer);
-
-/*   yes.addEventListener(`click`, () => {
-    container.removeChild(playerChoice);
-    container.removeChild(computerChoice);
-    container.removeChild(roundWinner);
-    container.removeChild(currentResult);
-    container.removeChild(repeatGame);
-    container.removeChild(yesNoContainer);
-    instructionText = false;
-    selectionContainer = false;
-    userChoice = ``;
-    humanScore = 0;
-    computerScore = 0;
-    i = 1;
-    instructionText = document.createElement(`p`);
-    instructionText.classList.add(`instructionText`);
-    instructionText.textContent = `Please Select!`;
-    container.appendChild(instructionText);
-    selectionContainer = document.createElement(`div`); 
-    selectionContainer.classList.add(`selectionContainer`);
-    addSelectionContainer();
-  }); */
-  // no.addEventListener(`click`, () => repeatGame.textContent = `Game Over!`);
-  
-/* 
-  let startOverGame = prompt(`Do you want to play another game?`, `Answer with 'Yes' or 'No'`);
-  if (startOverGame === `Yes`) {
-    game();
-  } else {
-    alert(`Game Over!`);
-    return;
-  } */
 }
 
 
