@@ -3,6 +3,7 @@ body {
   align-items: center;
   justify-content: center;
   height: 100vh;
+  background-color: #EEE2DC;
 }
 
 .container {
@@ -10,8 +11,59 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: 1px solid black;
-  background-color: aquamarine;
+  border: 5px solid #123C69;
+  background-color: #edc7b7;
   width: 50vw;
   height: 50vh;
+  color: #123C69;
+}
+
+.startGame,
+.rock,
+.paper,
+.scissors,
+.nextRound,
+.yes,
+.no {
+  background-color: #EEE2DC;
+  color: #123C69;
+  border: 1px solid #ac3b61;
+}
+
+.instructionText,
+.playerChoice,
+.computerChoice,
+.roundWinner,
+.currentResult,
+.repeatGame {
+  color: #123C69;
+}
+
+/* IPad Air and IPad Mini and Surface Pro 7 */
+@media screen and (max-width: 912px) and (max-height: 1368px) {
+  .container {
+    width: 70vw;
+    height: 60vh;
+  }
+}
+
+@media screen and (max-width: 900px) and (max-height: 600px) {
+  .container {
+    width: 55vw;
+    height: 70vh;
+  }
+}
+
+@media screen and (max-width: 600px){
+  .container {
+    width: 75vw;
+    height: 75vh;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .container {
+    width: 85vw;
+    height: 70vh;
+  }
 }
