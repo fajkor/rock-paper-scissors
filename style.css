@@ -6,18 +6,25 @@ body {
   background-color: #EEE2DC;
 }
 
+/* Style div container */
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   border: 5px solid #123C69;
+  border-radius: 10% 33% 30% 27%;
   background-color: #edc7b7;
   width: 50vw;
   height: 50vh;
   color: #123C69;
+  font-size: 1.5em;
+  font-weight: 600;
+  font-family: sans-serif;
+  text-align: center;
 }
 
+/* Style buttons */
 .startGame,
 .rock,
 .paper,
@@ -27,16 +34,42 @@ body {
 .no {
   background-color: #EEE2DC;
   color: #123C69;
-  border: 1px solid #ac3b61;
+  border: 5px solid #ac3b61;
+  border-radius: 20px 40%;
+  font-family:'Acme', sans-serif;
+  font-size: 1.1em;
+  font-weight: 400;
+  padding: 0.1em 0.7em;
+  margin: 0.8em 0.2em;
 }
 
+h1 {
+  color: #123C69;
+  font-size: 1.5em;
+  font-weight: 400;
+  font-family:'Acme', sans-serif;
+}
+
+/* Style paragraphs ('p' tags) */
 .instructionText,
 .playerChoice,
 .computerChoice,
 .roundWinner,
+.gameWinner,
 .currentResult,
+.finalResult,
 .repeatGame {
-  color: #123C69;
+  color: #379683;
+  font-size: 0.9em;
+  font-weight: 400;
+  font-family: 'Jua', sans-serif;
+  text-align: center;
+  margin: 0.3em;
+}
+
+.gameWinner,
+.finalResult {
+  color: #ac3b61;
 }
 
 /* IPad Air and IPad Mini and Surface Pro 7 */

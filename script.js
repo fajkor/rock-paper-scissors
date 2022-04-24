@@ -150,13 +150,15 @@ function game() {
       computerScore++;
       if (computerScore === 5) {
         /* Show the game winner */
-        container.appendChild(roundWinner);
+        roundWinner.classList.add(`gameWinner`);
         roundWinner.textContent = `Computer won round ${i} and game!`;
+        container.appendChild(roundWinner);
 
         /* Show final result */
-        container.appendChild(currentResult);
+        currentResult.classList.add(`finalResult`);
         currentResult.textContent = `Final Result: Human ${humanScore} - ${computerScore} Computer`;
-        startOver();
+        container.appendChild(currentResult);
+        setTimeout(startOver, 6000);
       } else {
         /* Show the winner of the round */
         container.appendChild(roundWinner);
@@ -173,13 +175,15 @@ function game() {
       humanScore++;
       if (humanScore === 5) {
         /* Show the game winner */
-        container.appendChild(roundWinner);
+        roundWinner.classList.add(`gameWinner`);
         roundWinner.textContent = `Human won round ${i} and game!`;
+        container.appendChild(roundWinner);
 
         /* Show final result */
-        container.appendChild(currentResult);
+        currentResult.classList.add(`finalResult`);
         currentResult.textContent = `Final Result: Human ${humanScore} - ${computerScore} Computer`;
-        startOver();
+        container.appendChild(currentResult);
+        setTimeout(startOver, 6000);
       } else {
         /* Show current winner of the round */
         container.appendChild(roundWinner);
@@ -250,6 +254,8 @@ function playRound(playerSelection, computerSelection) {
 
 /* This function allows us to play another game with computer */
 function startOver() {
+  /* Clear container */
+  container.textContent = ``;
   /* Add another paragraph asking if user wants to play another game */
   container.appendChild(repeatGame);
   repeatGame.textContent = `Do you want to play another game?`;
