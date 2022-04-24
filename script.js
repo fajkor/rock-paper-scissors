@@ -158,7 +158,7 @@ function game() {
         currentResult.classList.add(`finalResult`);
         currentResult.textContent = `Final Result: Human ${humanScore} - ${computerScore} Computer`;
         container.appendChild(currentResult);
-        setTimeout(startOver, 6000);
+        setTimeout(startOver, 4000);
       } else {
         /* Show the winner of the round */
         container.appendChild(roundWinner);
@@ -183,7 +183,7 @@ function game() {
         currentResult.classList.add(`finalResult`);
         currentResult.textContent = `Final Result: Human ${humanScore} - ${computerScore} Computer`;
         container.appendChild(currentResult);
-        setTimeout(startOver, 6000);
+        setTimeout(startOver, 4000);
       } else {
         /* Show current winner of the round */
         container.appendChild(roundWinner);
